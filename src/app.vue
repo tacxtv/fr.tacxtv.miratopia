@@ -7,7 +7,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-// Force dark mode
-</script>

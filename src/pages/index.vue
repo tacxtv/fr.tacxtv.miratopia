@@ -1,28 +1,35 @@
-<template>
-  <div class="container">
-    <h1 class="text-3xl font-bold">
-      Hello world!
-    </h1>
-  </div>
-</template>
+<script setup lang="ts">
+import MiraContainer from '~/components/common/MiraContainer.vue';
+import SectionHeader from '~/components/home/SectionHeader.vue';
+import SectionGallery from '~/components/home/SectionGallery.vue';
 
-<script lang="ts">
-export default {
-  name: 'IndexPage',
-}
+useHead({
+  title: 'Accueil'
+})
 </script>
 
+<template>
+  <SectionHeader />
+
+  <MiraContainer class="flex flex-col items-center justify-center pb-12 pt-0">
+    <div class="font-bold text-center text-gradient home__title">
+      L'aventure Miratopia reprend
+    </div>
+    <div class="font-semibold text-center text-gradient home__subtitle">
+      Salut
+    </div>
+  </MiraContainer>
+
+  <SectionGallery />
+
+</template>
+
 <style scoped>
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  width: 100%;
+.home__title {
+  font-size: 3rem;
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding: 1rem;
-  }
+.home__subtitle {
+  font-size: 1.5rem;
 }
 </style>

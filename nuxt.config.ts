@@ -47,6 +47,17 @@ export default defineNuxtConfig({
   appConfig: {
     appManagerVersion: process.env.npm_package_version,
   },
+
+  app: {
+    head: {
+      title: 'Miratopia',
+      titleTemplate: '%s | Miratopia',
+      link: [
+        { rel: 'icon', type: 'image/png', href: '/logo.png' }
+      ]
+    }
+  },
+
   modules: [
     '@pinia/nuxt',
     '@vueuse/nuxt',
@@ -68,6 +79,7 @@ export default defineNuxtConfig({
     plugins: [
       tailwindcss(),
     ],
+    assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.svg'],
   },
 
   pinia: {
