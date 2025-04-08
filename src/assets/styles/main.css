@@ -2,10 +2,86 @@
 
 :root {
     --body-font-size: 14px;
+
+    /* Primary tints - Pour les éléments interactifs */
+    --primary-0: #6be356;  /* Primary - a0 */
+    --primary-10: #80e76b; /* Primary - a10 */
+    --primary-20: #93ea7e; /* Primary - a20 */
+    --primary-30: #a4ee91; /* Primary - a30 */
+    --primary-40: #b4f1a3; /* Primary - a40 */
+    --primary-50: #c4f4b6; /* Primary - a50 */
+
+    /* Surface colors - Pour les fonds et cartes */
+    --surface-0: #020417;   /* Surface - a0 */
+    --surface-10: #1e202c;  /* Surface - a10 */
+    --surface-20: #363742;  /* Surface - a20 */
+    --surface-30: #4f505a;  /* Surface - a30 */
+    --surface-40: #6a6b74;  /* Surface - a40 */
+    --surface-50: #86868e;  /* Surface - a50 */
+
+    /* Textes */
+    --text-primary: #ffffff;
+    --text-secondary: #e0e0e0;
+    --text-muted: #a0a0a0;
 }
   
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
     font-size: var(--body-font-size);
     line-height: 1.5;
+}
+
+/* Classes utilitaires personnalisées */
+@layer components {
+    .dark {
+        /* Fond principal */
+        background-color: var(--surface-0);
+        color: var(--text-primary);
+    }
+
+    /* Cartes et conteneurs */
+    .dark-card {
+        background-color: var(--surface-10);
+        border: 1px solid var(--surface-20);
+        @apply rounded-lg p-4;
+    }
+
+    /* Boutons */
+    .dark-button {
+        background-color: var(--primary-0);
+        color: var(--surface-0);
+        @apply px-4 py-2 rounded-md transition-colors;
+    }
+    .dark-button:hover {
+        background-color: var(--primary-10); 
+    }
+
+    /* Variantes de boutons */
+    .dark-button-secondary {
+        background-color: var(--surface-20);
+        color: var(--text-primary);
+        @apply px-4 py-2 rounded-md transition-colors;
+    }
+    .dark-button-secondary:hover {
+        background-color: var(--surface-30);
+    }
+
+    /* Textes */
+    .dark-text-muted {
+        color: var(--text-muted);
+    }
+
+    /* Bordures */
+    .dark-border {
+        border-color: var(--surface-20);
+    }
+
+    /* Liens */
+    .dark-link {
+        color: var(--primary-0);
+        @apply transition-colors;
+    }
+    .dark-link:hover {
+        color: var(--primary-10);
+    }
 }
