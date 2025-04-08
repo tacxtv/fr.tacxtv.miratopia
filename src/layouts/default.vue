@@ -1,19 +1,25 @@
-<template lang="pug">
-q-layout(view="hHh Lpr lff")
-  q-custom-layout-default-header
-  q-custom-layout-default-drawer
-  q-page-container.q-mx-md
-    nuxt-page
-  q-custom-layout-default-footer
+<script lang="ts" setup>
+
+</script>
+
+<template>
+  <div class="layout">
+    <header class="layout-header">
+      <slot name="header" />
+    </header>
+    
+    <div class="layout-content">
+      <main class="layout-main">
+        <slot />
+      </main>
+    </div>
+    
+    <footer class="layout-footer">
+      <slot name="footer" />
+    </footer>
+  </div>
 </template>
 
-<script lang="ts" setup>
-import { provide, ref } from 'vue'
-import { useQuasar } from 'quasar'
+<style lang="scss" scoped>
 
-const $q = useQuasar()
-
-const drawer = ref($q.screen.width > 700)
-
-provide('drawer', drawer)
-</script>
+</style>

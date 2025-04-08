@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs'
-import pugPlugin from 'vite-plugin-pug'
 import { defineNuxtConfig } from 'nuxt/config'
 import * as consola from 'consola'
+import tailwindcss from '@tailwindcss/vite'
 
 let sslCfg = <any>{}
 if (/yes|1|on|true/i.test(`${process.env.APP_HTTPS_ENABLED}`)) {
@@ -37,11 +37,11 @@ export default defineNuxtConfig({
     },
   },
 
-  css: ['~/assets/styles/global.sass'],
+  css: ['~/assets/styles/main.css'],
   plugins: [],
   components: {
     global: true,
-    dirs: [{ path: '~/components', prefix: 'q-custom' }],
+    dirs: [{ path: '~/components' }],
   },
 
   appConfig: {
@@ -49,7 +49,6 @@ export default defineNuxtConfig({
   },
   modules: [
     '@pinia/nuxt',
-    'nuxt-quasar-ui',
     '@vueuse/nuxt',
     'dayjs-nuxt',
     '@nuxt/devtools',
@@ -62,29 +61,12 @@ export default defineNuxtConfig({
     plugins: ['timezone', 'relativeTime'],
   },
 
-  quasar: {
-    iconSet: 'mdi-v7',
-    plugins: ['Notify', 'Dialog'],
-    config: {
-      dark: 'auto',
-      notify: {
-        timeout: 2500,
-        position: 'top-right',
-        actions: [{ icon: 'mdi-close', color: 'white' }],
-      },
-    },
-  },
-
   vite: {
     define: {
       'process.env.DEBUG': process.env.NODE_ENV === 'development',
     },
     plugins: [
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      pugPlugin(<any>{
-        pretty: true,
-        compilerOptions: {},
-      }),
+      tailwindcss(),
     ],
   },
 

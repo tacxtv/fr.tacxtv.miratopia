@@ -3,12 +3,11 @@
   "extends": "./.nuxt/tsconfig.json",
 
   "compilerOptions": {
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noImplicitAny": false,
     "esModuleInterop": true
   },
 
   "vueCompilerOptions": {
-    "plugins": ["@vue/language-plugin-pug"]
   }
 }
