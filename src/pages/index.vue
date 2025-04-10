@@ -2,6 +2,7 @@
 import MiraContainer from '~/components/common/MiraContainer.vue';
 import SectionHeader from '~/components/home/SectionHeader.vue';
 import SectionGallery from '~/components/home/SectionGallery.vue';
+import SectionFeatures from '~/components/home/SectionFeatures.vue';
 
 useHead({
   title: 'Accueil'
@@ -11,16 +12,19 @@ useHead({
 <template>
   <SectionHeader />
 
-  <MiraContainer class="flex flex-col items-center justify-center pb-12 pt-0">
+  <MiraContainer class="flex flex-col items-center justify-center md:pb-24 pb-12">
     <div class="font-bold text-center text-gradient home__title">
-      L'aventure Miratopia reprend
+      Un nouveau départ
     </div>
     <div class="font-semibold text-center text-gradient home__subtitle">
-      Salut
+      Vis une nouvelle aventure, sur de nouvelles terres
     </div>
   </MiraContainer>
 
   <SectionGallery />
+
+
+  <SectionFeatures />
 
 </template>
 

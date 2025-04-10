@@ -5,38 +5,27 @@ const cards = [
   {
     id: 1,
     image: '/carroussel/image1.png',
-    title: 'Titre 1',
-    description: 'Description de la première carte'
+    title: 'Découvrez une nouvelle carte aux biomes variés où vous installer',
   },
   {
     id: 2,
     image: '/carroussel/image2.png',
-    title: 'Titre 2',
-    description: 'Description de la deuxième carte'
+    title: 'Partez à la rencontre des habitants et aidez-les dans leurs quêtes',
   },
   {
     id: 3,
     image: '/carroussel/image3.png',
-    title: 'Titre 3',
-    description: 'Description de la troisième carte'
+    title: 'Participez à des événements spéciaux et gagnez de belles récompenses !',
   },
   {
     id: 4,
     image: '/carroussel/image4.png',
-    title: 'Titre 4',
-    description: 'Description de la quatrième carte'
+    title: 'Redécouvrez des mods déjà présents ainsi que de tout nouveaux prêts à être testés !',
   },
   {
     id: 5,
     image: '/carroussel/image5.png',
-    title: 'Titre 5',
-    description: 'Description de la cinquième carte'
-  },
-  {
-    id: 6,
-    image: '/carroussel/image6.png',
-    title: 'Titre 6',
-    description: 'Description de la sixième carte'
+    title: 'Mais le plus important... Amusez-vous avec vos amis !',
   }
 ]
 
@@ -52,7 +41,7 @@ const prevSlide = () => {
 }
 
 onMounted(() => {
-  intervalId = window.setInterval(nextSlide, 10000) // 10 secondes
+  intervalId = window.setInterval(nextSlide, 15000)
 })
 
 onUnmounted(() => {
@@ -76,16 +65,23 @@ onUnmounted(() => {
         >
           <div class="card-image" :style="{ backgroundImage: `url(${card.image})` }">
             <div class="card-content">
-              <h3>{{ card.title }}</h3>
-              <p>{{ card.description }}</p>
+              <p class="text-white text-2xl font-bold">{{ card.title }}</p>
             </div>
           </div>
         </div>
       </div>
       
       <!-- Ajout des boutons de navigation -->
-      <button class="nav-button prev" @click="prevSlide">&lt;</button>
-      <button class="nav-button next" @click="nextSlide">&gt;</button>
+      <button class="nav-button prev" @click="prevSlide">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="nav-button next" @click="nextSlide">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 6L15 12L9 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
       
       <!-- Indicateurs de position -->
       <div class="carousel-indicators">
@@ -112,6 +108,16 @@ onUnmounted(() => {
   width: 100%;
   height: 600px;
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .carousel {
+    height: 400px;
+  }
+  
+  .nav-button {
+    display: none;
+  }
 }
 
 .carousel-inner {
@@ -162,9 +168,8 @@ onUnmounted(() => {
   background: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
-  padding: 1rem;
+  padding: 0;
   cursor: pointer;
-  font-size: 1.5rem;
   transition: background-color 0.3s;
   z-index: 2;
   border-radius: 50%;
@@ -173,6 +178,11 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.nav-button svg {
+  width: 24px;
+  height: 24px;
 }
 
 .nav-button:hover {
@@ -189,7 +199,7 @@ onUnmounted(() => {
 
 .carousel-indicators {
   position: absolute;
-  bottom: 1rem;
+  bottom: 1.6rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
