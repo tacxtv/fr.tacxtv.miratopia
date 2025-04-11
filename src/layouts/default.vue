@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import MiraFooter from '~/components/common/MiraFooter.vue';
 import MiraNavbar from '~/components/common/MiraNavbar.vue'
+
+const displayFooterMargin = computed<boolean>(() => {
+  return useRoute().path === '/'
+})
 </script>
 
 <template>
@@ -16,7 +20,7 @@ import MiraNavbar from '~/components/common/MiraNavbar.vue'
       </main>
     </div>
 
-    <footer class="layout-footer">
+    <footer :class="{ 'layout-footer': displayFooterMargin }">
       <MiraFooter />
     </footer>
   </div>
