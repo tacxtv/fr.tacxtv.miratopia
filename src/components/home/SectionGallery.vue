@@ -3,41 +3,65 @@ import { ref, onMounted, onUnmounted } from 'vue'
 
 const cards = [
   {
-    id: 1,
     image: '/carroussel/image1.png',
+    title: 'Débarquez pour une nouvelle aventure en survie !',
+  },
+  {
+    image: '/carroussel/paysage1.png',
     title: 'Découvrez une nouvelle carte aux biomes variés où vous installer',
   },
   {
-    id: 2,
     image: '/carroussel/image2.png',
     title: 'Partez à la rencontre des habitants et aidez-les dans leurs quêtes',
   },
   {
-    id: 3,
+    image: '/carroussel/paysage2.png',
+    title: 'Installez-vous dans des endroits fantastiques',
+  },
+  {
     image: '/carroussel/image3.png',
     title: 'Participez à des événements spéciaux et gagnez de belles récompenses !',
   },
   {
-    id: 4,
-    image: '/carroussel/image4.png',
-    title: 'Redécouvrez des mods déjà présents ainsi que de tout nouveaux prêts à être testés !',
+    image: '/carroussel/paysage3.png',
+    title: 'Faites face aux dangers qui se dresseront devant vous',
   },
   {
-    id: 5,
+    image: '/carroussel/image4.png',
+    title: 'Redécouvrez des mods déjà présents ainsi que de tout nouveaux prêts à être testés ! ',
+  },
+  {
+    image: '/carroussel/paysage4.png',
+    title: 'Parcourez des champs fleuris et des terres fertiles',
+  },
+  {
+    image: '/carroussel/paysage5.png',
+    title: 'Gravissez les montagnes et les vallées',
+  },
+  {
     image: '/carroussel/image5.png',
     title: 'Mais le plus important... Amusez-vous avec vos amis !',
-  }
+  },
 ]
 
 const currentIndex = ref(0)
 let intervalId: number | null = null
 
+const resetInterval = () => {
+  if (intervalId !== null) {
+    clearInterval(intervalId)
+  }
+  intervalId = window.setInterval(nextSlide, 15000)
+}
+
 const nextSlide = () => {
   currentIndex.value = (currentIndex.value + 1) % cards.length
+  resetInterval()
 }
 
 const prevSlide = () => {
   currentIndex.value = (currentIndex.value - 1 + cards.length) % cards.length
+  resetInterval()
 }
 
 onMounted(() => {
@@ -59,8 +83,8 @@ onUnmounted(() => {
         :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
       >
         <div 
-          v-for="(card, index) in cards" 
-          :key="card.id"
+          v-for="card in cards" 
+          :key="card.title"
           class="carousel-card"
         >
           <div class="card-image" :style="{ backgroundImage: `url(${card.image})` }">
@@ -106,7 +130,7 @@ onUnmounted(() => {
 .carousel {
   position: relative;
   width: 100%;
-  height: 600px;
+  height: 700px;
   overflow: hidden;
 }
 
@@ -116,6 +140,14 @@ onUnmounted(() => {
   }
   
   .nav-button {
+    display: none;
+  }
+
+  .carousel-indicators {
+    display: none;
+  }
+
+  .indicator {
     display: none;
   }
 }

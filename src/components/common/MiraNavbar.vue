@@ -8,10 +8,32 @@ const navLinks = [
 ]
 
 const isMenuOpen = ref(false)
+const mobileMenuRef = ref<HTMLElement | null>(null)
+const hamburgerButtonRef = ref<HTMLElement | null>(null)
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
 }
+
+const handleClickOutside = (event: MouseEvent) => {
+  const target = event.target as HTMLElement
+  if (
+    isMenuOpen.value && 
+    mobileMenuRef.value && 
+    !mobileMenuRef.value.contains(target) &&
+    !hamburgerButtonRef.value?.contains(target)
+  ) {
+    isMenuOpen.value = false
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside)
+})
 </script>
 
 <template>
@@ -23,6 +45,7 @@ const toggleMenu = () => {
 
     <!-- Bouton hamburger pour mobile -->
     <button 
+      ref="hamburgerButtonRef"
       class="mobile-menu-button hidden md:hidden p-2 cursor-pointer"
       @click="toggleMenu"
       aria-label="Menu"
@@ -36,6 +59,7 @@ const toggleMenu = () => {
 
     <!-- Menu de navigation -->
     <div 
+      ref="mobileMenuRef"
       class="nav-content flex-1 flex justify-center items-center gap-8 md:static"
       :class="{ 'show': isMenuOpen }"
     >
@@ -49,10 +73,15 @@ const toggleMenu = () => {
         >
           {{ link.name }}
         </NuxtLink>
+        <NuxtLink 
+          class="btn btn-secondary md:hidden px-4 py-2 rounded-md font-medium transition-all border border-[var(--primary-0)] text-[var(--primary-0)] hover:bg-[var(--surface-20)] cursor-pointer text-center"
+        >
+          Se connecter
+        </NuxtLink>
       </div>
     </div>
 
-    <div class="navbar-buttons hidden md:flex gap-4">
+    <div class="navbar-buttons hidden lg:flex gap-4">
       <button class="btn btn-secondary px-4 py-2 rounded-md font-medium transition-all border border-[var(--primary-0)] text-[var(--primary-0)] hover:bg-[var(--surface-20)] cursor-pointer">
         Se connecter
       </button>

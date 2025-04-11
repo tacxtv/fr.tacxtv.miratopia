@@ -11,7 +11,6 @@ useHead({
 
 <template>
   <SectionHeader />
-
   <MiraContainer class="flex flex-col items-center justify-center md:pb-24 pb-12">
     <div class="font-bold text-center text-gradient home__title">
       Un nouveau départ
@@ -20,12 +19,8 @@ useHead({
       Vis une nouvelle aventure, sur de nouvelles terres
     </div>
   </MiraContainer>
-
   <SectionGallery />
-
-
   <SectionFeatures />
-
 </template>
 
 <style scoped>
