@@ -1,13 +1,13 @@
 <script setup lang="ts">
+import MiraWorkInProgress from '~/components/common/MiraWorkInProgress.vue';
+
 useHead({
   title: 'L\'Équipe'
 })
 </script>
 
 <template>
-  <div>
-    <h1>L'Équipe</h1>
-  </div>
+  <MiraWorkInProgress />
 </template>
 
 <style scoped>
