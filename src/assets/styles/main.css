@@ -46,6 +46,15 @@ body {
         @apply rounded-lg p-4;
     }
 
+    /* Headers de cartes */
+    .card-header {
+        background: linear-gradient(90deg, 
+            rgba(64, 94, 57, 0.7),  /* var(--primary-0) avec 70% d'opacité */
+            rgba(199, 255, 197, 0.5)  /* var(--primary-10) avec 70% d'opacité */
+        );
+        backdrop-filter: blur(8px);
+    }
+
     /* Boutons */
     .dark-button {
         background-color: var(--primary-0);

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { navigateTo } from 'nuxt/app';
+
 
 </script>
 
@@ -58,10 +60,13 @@
               Village communautaire
           </div>
           <div class="text-white text-lg xl:text-xl">
-            Construis un village communautaire où les joueurs pourront se réunir et partager des expériences et <b>participe à son évolution</b>.
+            Construisez un village communautaire où les joueurs pourront se réunir et partager des expériences et <b>participez à son évolution</b>.
           </div>
           <div class="flex xl:flex-row flex-col items-center justify-center gap-2">
-            <button class="btn btn-primary px-4 py-2 rounded-md font-medium transition-all bg-[var(--primary-0)] text-[var(--surface-0)] hover:bg-[var(--primary-10)] cursor-pointer">
+            <button 
+              class="btn btn-primary px-4 py-2 rounded-md font-medium transition-all bg-[var(--primary-0)] text-[var(--surface-0)] hover:bg-[var(--primary-10)] cursor-pointer"
+              @click="navigateTo('/city')"
+            >
               <span class="flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
