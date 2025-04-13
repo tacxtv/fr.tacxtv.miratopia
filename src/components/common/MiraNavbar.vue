@@ -33,7 +33,11 @@ onMounted(() => {
 
 onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
-})
+  })
+
+const redirectToLogin = () => {
+  window.open('https://mirashop.tacxtv.fr/login', '_blank')
+}
 </script>
 
 <template>
@@ -75,6 +79,7 @@ onUnmounted(() => {
         </NuxtLink>
         <NuxtLink 
           class="btn btn-secondary md:hidden px-4 py-2 rounded-md font-medium transition-all border border-[var(--primary-0)] text-[var(--primary-0)] hover:bg-[var(--surface-20)] cursor-pointer text-center"
+          to="https://mirashop.tacxtv.fr/login"
         >
           Se connecter
         </NuxtLink>
@@ -82,7 +87,10 @@ onUnmounted(() => {
     </div>
 
     <div class="navbar-buttons hidden lg:flex gap-4">
-      <button class="btn btn-secondary px-4 py-2 rounded-md font-medium transition-all border border-[var(--primary-0)] text-[var(--primary-0)] hover:bg-[var(--surface-20)] cursor-pointer">
+      <button 
+        class="btn btn-secondary px-4 py-2 rounded-md font-medium transition-all border border-[var(--primary-0)] text-[var(--primary-0)] hover:bg-[var(--surface-20)] cursor-pointer"
+        @click="redirectToLogin"
+      >
         Se connecter
       </button>
       <button class="btn btn-primary px-4 py-2 rounded-md font-medium transition-all bg-[var(--primary-0)] text-[var(--surface-0)] hover:bg-[var(--primary-10)] cursor-pointer">
