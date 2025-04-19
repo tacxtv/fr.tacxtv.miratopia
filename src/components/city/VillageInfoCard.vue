@@ -29,20 +29,6 @@ defineEmits<{
       </div>
     </div>
     <div v-show="expanded" class="p-4">
-      <!-- Section Lois -->
-      <div class="mb-6">
-        <h3 class="text-white text-lg font-medium mb-2">Lois en cours de vote</h3>
-        <div class="space-y-3">
-          <div v-for="law in laws" :key="law.title" class="bg-white/10 backdrop-blur-sm p-4 rounded-lg">
-            <div class="text-white font-medium">{{ law.title }}</div>
-            <div class="flex items-center gap-4 mt-2">
-              <div class="text-green-400">Pour : {{ law.votes.for }}</div>
-              <div class="text-red-400">Contre : {{ law.votes.against }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- Section Niveau du Village -->
       <div class="mb-6">
         <h3 class="text-white text-lg font-medium mb-2">Niveau du Village</h3>

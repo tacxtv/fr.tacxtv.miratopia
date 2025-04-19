@@ -38,6 +38,14 @@ onUnmounted(() => {
 const redirectToLogin = () => {
   window.open('https://mirashop.tacxtv.fr/login', '_blank')
 }
+
+const downloadLauncher = () => {
+  const isWindows = navigator.platform.toLowerCase().includes('win')
+  const windowsUrl = 'https://github.com/tacxtv/miratopia-launcher/releases/download/v0.2.1/Miratopia-Launcher_0.2.1.exe'
+  const otherUrl = 'https://github.com/tacxtv/miratopia-launcher/releases'
+  
+  window.open(isWindows ? windowsUrl : otherUrl, '_blank')
+}
 </script>
 
 <template>
@@ -93,7 +101,7 @@ const redirectToLogin = () => {
       >
         Se connecter
       </button>
-      <button class="btn btn-primary px-4 py-2 rounded-md font-medium transition-all bg-[var(--primary-0)] text-[var(--surface-0)] hover:bg-[var(--primary-10)] cursor-pointer">
+      <button class="btn btn-primary px-4 py-2 rounded-md font-medium transition-all bg-[var(--primary-0)] text-[var(--surface-0)] hover:bg-[var(--primary-10)] cursor-pointer" @click="downloadLauncher">
         <span class="flex items-center gap-2">
           <svg class="mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 15V3M12 15L8 11M12 15L16 11M21 15V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

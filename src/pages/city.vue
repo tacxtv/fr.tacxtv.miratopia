@@ -2,8 +2,11 @@
 import MiraWorkInProgress from '~/components/common/MiraWorkInProgress.vue';
 import GovernmentCard from '~/components/city/GovernmentCard.vue';
 import CitizensCard from '~/components/city/CitizensCard.vue';
-import ElectionsCard from '~/components/city/ElectionsCard.vue';
 import VillageInfoCard from '~/components/city/VillageInfoCard.vue';
+import ConstitutionCard from '~/components/city/ConstitutionCard.vue';
+import LawsCard from '~/components/city/LawsCard.vue';
+import type { Citizen } from '~/services/city/Citizen';
+import { UserRole } from '~/services/city/UserRole';
 
 useHead({
   title: 'Le Village'
@@ -12,10 +15,20 @@ useHead({
 const localStorageFeatureFlag = useLocalStorage('feature-flag', 'false')
 const displayWip = computed(() => localStorageFeatureFlag.value !== 'true')
 
+const governmentCitizens = ref<{
+  mayor?: Citizen;
+  deputy?: Citizen;
+  sheriff?: Citizen;
+}>()
+ 
+const citizens = ref<Citizen[]>([])
+
 // État des cartes dépliées
 const expandedCards = ref({
   government: true,
   citizens: true,
+  constitution: true,
+  laws: true,
   elections: true,
   villageInfo: true
 })
@@ -27,67 +40,12 @@ const toggleCard = (cardName: string) => {
 
 // Données de test
 const villageData = {
-  government: {
-    mayor: {
-      name: 'TacxTV',
-      avatar: 'https://crafatar.com/avatars/12345678-1234-1234-1234-123456789012'
-    },
-    deputy: {
-      name: 'Mira',
-      avatar: 'https://crafatar.com/avatars/87654321-4321-4321-4321-210987654321'
-    },
-    sheriff: {
-      name: 'Bob',
-      avatar: 'https://crafatar.com/avatars/11111111-2222-3333-4444-555555555555'
-    }
-  },
-  citizens: [
-    { name: 'Alice', avatar: 'https://crafatar.com/avatars/66666666-7777-8888-9999-000000000000' },
-    { name: 'Charlie', avatar: 'https://crafatar.com/avatars/22222222-3333-4444-5555-666666666666' },
-    { name: 'David', avatar: 'https://crafatar.com/avatars/33333333-4444-5555-6666-777777777777' },
-    { name: 'Eve', avatar: 'https://crafatar.com/avatars/44444444-5555-6666-7777-888888888888' }
-  ],
-  elections: {
-    current: {
-      type: 'Élection du Maire',
-      endDate: '2024-03-15T20:00:00',
-      candidates: [
-        {
-          name: 'TacxTV',
-          avatar: 'https://crafatar.com/avatars/12345678-1234-1234-1234-123456789012',
-          program: [
-            'Construction d\'une nouvelle mairie',
-            'Création d\'une zone commerciale',
-            'Amélioration des transports',
-            'Organisation d\'événements hebdomadaires'
-          ]
-        },
-        {
-          name: 'Mira',
-          avatar: 'https://crafatar.com/avatars/87654321-4321-4321-4321-210987654321',
-          program: [
-            'Développement des infrastructures',
-            'Création d\'un système de parrainage',
-            'Mise en place d\'une banque communautaire',
-            'Organisation de tournois PvP'
-          ]
-        },
-        {
-          name: 'Bob',
-          avatar: 'https://crafatar.com/avatars/11111111-2222-3333-4444-555555555555',
-          program: [
-            'Renforcement de la sécurité',
-            'Création d\'une zone agricole',
-            'Mise en place d\'un système de récompenses',
-            'Organisation de chasses au trésor'
-          ]
-        }
-      ]
-    }
-  },
   laws: [
-    { title: 'Interdiction de construire en diamant', votes: { for: 12, against: 3 } },
-    { title: 'Nouvelle zone résidentielle', votes: { for: 8, against: 7 } }
+    { title: 'Interdiction de construire en diamant', description: 'Interdiction de construire en diamant', votes: { for: 12, against: 3 } },
+    { title: 'Nouvelle zone résidentielle', description: 'Nouvelle zone résidentielle', votes: { for: 8, against: 7 } },
+    { title: 'Nouvelle zone résidentielle', description: 'Nouvelle zone résidentielle', votes: { for: 8, against: 7 } },
+    { title: 'Nouvelle zone résidentielle', description: 'Nouvelle zone résidentielle', votes: { for: 8, against: 7 } },
+    { title: 'Nouvelle zone résidentielle', description: 'Nouvelle zone résidentielle', votes: { for: 8, against: 7 } }
   ],
   villageLevel: {
     current: 3,
@@ -101,9 +59,36 @@ const villageData = {
     ]
   }
 }
+
+const fetchCitizens = async () => {
+  fetch('https://mirashop.tacxtv.fr/api/core/users')
+    .then(response => response.json())
+    .then(data => {
+      citizens.value = data.data
+    })
+    .catch(error => {
+      console.error('Erreur lors de la récupération des données:', error)
+    })
+}
+
+const fetchGovernment = async () => {
+   const responseMayor = await fetch('https://mirashop.tacxtv.fr/api/core/users?roles=maire,sherif,adjoint')
+   const dataMayor = await responseMayor.json()
+   governmentCitizens.value = {
+    mayor: dataMayor.data?.find(citizen => citizen.roles?.includes(UserRole.MAIRE)),
+    deputy: dataMayor.data?.find(citizen => citizen.roles?.includes(UserRole.ADJOINT)),
+    sheriff: dataMayor.data?.find(citizen => citizen.roles?.includes(UserRole.SHERIF))
+   }
+}
+
+onMounted(async () => {
+  await fetchCitizens()
+  await fetchGovernment()
+})
 </script>
 
 <template>
+  <div>
   <div v-if="displayWip" class="layout">
     <MiraWorkInProgress />
   </div>
@@ -114,7 +99,7 @@ const villageData = {
       <div class="relative z-20">
         <div class="mt-10 flex flex-col items-center gap-8 px-4 md:px-0">
           <div class="text-white text-4xl md:text-6xl font-bold tracking-tight">Le Village</div>
-          <div class="text-white/80 text-xl w-full md:w-1/3 text-center leading-relaxed">
+          <div class="text-white text-xl  w-full md:w-2/3 text-center">
             Une ville communautaire gérée entièrement par les joueurs en semi-RP
           </div>
         </div>
@@ -127,33 +112,38 @@ const villageData = {
         <div class="w-full md:w-1/4 space-y-6">
           <GovernmentCard 
             :expanded="expandedCards.government"
-            :government="villageData.government"
+            :government="governmentCitizens"
             @toggle="toggleCard('government')"
           />
           <CitizensCard 
             :expanded="expandedCards.citizens"
-            :citizens="villageData.citizens"
+            :citizens="citizens"
             @toggle="toggleCard('citizens')"
           />
         </div>
 
         <!-- Colonne de droite (w-3/4) -->
         <div class="w-full md:w-3/4 space-y-6">
-          <ElectionsCard 
-            :expanded="expandedCards.elections"
-            :elections="villageData.elections"
-            @toggle="toggleCard('elections')"
-          />
           <VillageInfoCard 
             :expanded="expandedCards.villageInfo"
             :laws="villageData.laws"
             :village-level="villageData.villageLevel"
             @toggle="toggleCard('villageInfo')"
           />
+          <ConstitutionCard 
+            :expanded="expandedCards.constitution"
+            @toggle="toggleCard('constitution')"
+          />
+          <LawsCard 
+            :expanded="expandedCards.laws"
+            :laws="villageData.laws"
+            @toggle="toggleCard('laws')"
+          />
         </div>
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <style scoped>

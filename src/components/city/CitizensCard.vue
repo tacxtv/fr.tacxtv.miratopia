@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { Citizen } from '~/services/city/Citizen';
+
 defineProps<{
   expanded: boolean;
-  citizens: Array<{ name: string; avatar: string }>;
+  citizens: Citizen[];
 }>();
 
 defineEmits<{
@@ -24,8 +26,8 @@ defineEmits<{
     </div>
     <div v-show="expanded" class="p-4 space-y-2">
       <div v-for="citizen in citizens" :key="citizen.name" class="flex items-center gap-3">
-        <img :src="citizen.avatar" class="w-10 h-10 rounded-full" :alt="'Avatar de ' + citizen.name">
-        <span class="text-white">{{ citizen.name }}</span>
+        <img :src="citizen._minecraftHead" class="w-10 h-10 rounded-full" :alt="'Avatar de ' + citizen.name">
+        <span class="text-white font-semibold">{{ citizen.name }}</span>
       </div>
     </div>
   </div>
