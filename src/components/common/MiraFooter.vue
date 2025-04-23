@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Twitter, Instagram, Youtube, Twitch, X } from 'lucide-vue-next'
+import { Instagram, Youtube, Twitch } from 'lucide-vue-next'
 
 const currentYear = new Date().getFullYear()
 </script>

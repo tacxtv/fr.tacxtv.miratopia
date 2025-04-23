@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const navLinks = [
   { name: 'Accueil', path: '/' },
-  { name: 'Guide', path: '/guide' },
+  { name: 'Guide', path: 'https://tacx.notion.site/Wikitopia-1de153ee963f80d29df1cdeeb85779e5' },
   { name: "Map", path: '/map' },
   { name: 'Le Village', path: '/city' },
   { name: "L'Équipe", path: '/team' },
@@ -80,6 +80,7 @@ const downloadLauncher = () => {
           v-for="link in navLinks"
           :key="link.path"
           :to="link.path"
+          :target="link.name === 'Guide' ? '_blank' : '_self'"
           class="nav-link font-medium text-[var(--text-secondary)] hover:text-[var(--primary-0)] transition-colors"
           @click="isMenuOpen = false"
         >
