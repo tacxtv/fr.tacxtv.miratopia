@@ -19,7 +19,7 @@ const toggle = () => {
       @click="toggle"
     >
       <h2 class="text-white text-2xl font-semibold">La Constitution</h2>
-      <button class="text-white">
+      <button class="text-white cursor-pointer">
         <svg 
           class="w-6 h-6 transform transition-transform duration-200" 
           :class="{ 'rotate-180': !expanded }"

@@ -4,7 +4,7 @@ export enum UserRole {
   SHERIF = 'sherif',
   ADJOINT = 'adjoint',
 
-  SENATEUR = 'senateur',
+  SENATEURS = 'senateurs',
 
   MOD = 'mod',
   OP = 'op',

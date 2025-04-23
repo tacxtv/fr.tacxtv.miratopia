@@ -19,6 +19,7 @@ const governmentCitizens = ref<{
   mayor?: Citizen;
   deputy?: Citizen;
   sheriff?: Citizen;
+  senators?: Citizen[];
 }>()
  
 const citizens = ref<Citizen[]>([])
@@ -72,12 +73,13 @@ const fetchCitizens = async () => {
 }
 
 const fetchGovernment = async () => {
-   const responseMayor = await fetch('https://mirashop.tacxtv.fr/api/core/users?roles=maire,sherif,adjoint')
+   const responseMayor = await fetch('https://mirashop.tacxtv.fr/api/core/users?roles=maire,sherif,adjoint,senateurs')
    const dataMayor = await responseMayor.json()
    governmentCitizens.value = {
     mayor: dataMayor.data?.find(citizen => citizen.roles?.includes(UserRole.MAIRE)),
     deputy: dataMayor.data?.find(citizen => citizen.roles?.includes(UserRole.ADJOINT)),
-    sheriff: dataMayor.data?.find(citizen => citizen.roles?.includes(UserRole.SHERIF))
+    sheriff: dataMayor.data?.find(citizen => citizen.roles?.includes(UserRole.SHERIF)),
+    senators: dataMayor.data?.filter(citizen => citizen.roles?.includes(UserRole.SENATEURS))
    }
 }
 
