@@ -42,61 +42,50 @@ const formatDate = (dateString: string) => {
     </div>
     
     <div v-show="expanded" class="p-4">
-      <div v-if="government?.mayor || government?.deputy || government?.sheriff">
+      <div>
         <!-- Section Maire -->
-        <div class="mb-6" v-if="government?.mayor">
+        <div class="mb-6">
           <h3 class="text-white text-lg font-medium mb-2">Maire</h3>
           <div class="flex items-center gap-3">
-            <img :src="government.mayor._minecraftHead" class="w-10 h-10 rounded-full" alt="Avatar du Maire">
-            <span class="text-white">{{ government.mayor.name }}</span>
+            <img :src="government?.mayor?._minecraftHead || 'https://images.minecraft-heads.com/render2d/head/ac/ac2ef5fbf0cad1978ce572cee85410c9.webp'" class="w-10 h-10 rounded-full" alt="Avatar du Maire">
+            <span class="text-white">{{ government?.mayor?.name || 'Pas de maire pour le moment' }}</span>
           </div>
-        </div>
-        <div class="mb-6" v-else>
-          <p class="text-white">Pas de maire pour le moment</p>
         </div>
 
         <!-- Section Adjoint -->
-        <div class="mb-6" v-if="government?.deputy">
+        <div class="mb-6">
           <h3 class="text-white text-lg font-medium mb-2">Adjoint</h3>
           <div class="flex items-center gap-3">
-            <img :src="government.deputy._minecraftHead" class="w-10 h-10 rounded-full" alt="Avatar de l'Adjoint">
-            <span class="text-white">{{ government.deputy.name }}</span>
+            <img :src="government?.deputy?._minecraftHead || 'https://images.minecraft-heads.com/render2d/head/ac/ac2ef5fbf0cad1978ce572cee85410c9.webp'" class="w-10 h-10 rounded-full" alt="Avatar de l'Adjoint">
+            <span class="text-white">{{ government?.deputy?.name || 'Pas d\'adjoint pour le moment' }}</span>
           </div>
-        </div>
-        <div class="mb-6" v-else>
-          <p class="text-white">Pas d'adjoint pour le moment</p>
         </div>
 
         <!-- Section Shérif -->
-        <div v-if="government?.sheriff">
+        <div class="mb-6">
           <h3 class="text-white text-lg font-medium mb-2">Shérif</h3>
           <div class="flex items-center gap-3">
-            <img :src="government.sheriff._minecraftHead" class="w-10 h-10 rounded-full" alt="Avatar du Shérif">
-            <span class="text-white">{{ government.sheriff.name }}</span>
+            <img :src="government?.sheriff?._minecraftHead || 'https://images.minecraft-heads.com/render2d/head/ac/ac2ef5fbf0cad1978ce572cee85410c9.webp'" class="w-10 h-10 rounded-full" alt="Avatar du Shérif">
+            <span class="text-white">{{ government?.sheriff?.name || 'Pas de shérif pour le moment' }}</span>
           </div>
-        </div>
-        <div class="mb-6" v-else>
-          <p class="text-white">Pas de shérif pour le moment</p>
         </div>
 
         <hr class="my-4 border-white/20">
 
         <!-- Section Sénateurs -->
-        <div v-if="government?.senators && government?.senators?.length > 0" class="mb-6">
-          <div v-for="senator in government.senators" :key="senator.name">
-            <h3 class="text-white text-lg font-medium mb-2">Sénateurs</h3>
-            <div class="flex items-center gap-3">
+        <div class="mb-6">
+          <h3 class="text-white text-lg font-medium mb-2">Sénateurs</h3>
+          <div v-if="government?.senators && government?.senators?.length > 0">
+            <div v-for="senator in government.senators" :key="senator.name" class="flex items-center gap-3 mb-2">
               <img :src="senator._minecraftHead" class="w-10 h-10 rounded-full" alt="Avatar du sénateur">
               <span class="text-white">{{ senator.name }}</span>
             </div>
           </div>
+          <div v-else class="flex items-center gap-3">
+            <img src="https://images.minecraft-heads.com/render2d/head/ac/ac2ef5fbf0cad1978ce572cee85410c9.webp" class="w-10 h-10 rounded-full" alt="Avatar du sénateur">
+            <span class="text-white">Pas de sénateurs pour le moment</span>
+          </div>
         </div>
-        <div class="mb-6" v-else>
-          <p class="text-white">Pas de sénateurs pour le moment</p>
-        </div>
-      </div>
-      <div v-else>
-        <p class="text-white">Pas de gouvernement pour le moment</p>
       </div>
 
       <div class="text-white bg-white/10 backdrop-blur-sm p-4 rounded-lg mb-6 flex flex-col justify-between items-center ring-2 ring-[var(--primary-60)] ring-opacity-30">

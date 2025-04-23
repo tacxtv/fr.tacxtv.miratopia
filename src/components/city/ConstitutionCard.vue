@@ -1,7 +1,25 @@
 <script setup lang="ts">
+import type { ConstitutionArticle } from '~/services/city/ConstitutionArticle';
+
 defineProps<{
   expanded: boolean;
+  constitutionArticles: ConstitutionArticle[];
 }>()
+
+const getConstitutionArticleTitle = (article: ConstitutionArticle) => {
+  return article.artnum.split('-')[1] + '-' + article.artnum.split('-')[2]
+}
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const day = date.getDate().toString().padStart(2, '0');
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const year = date.getFullYear();
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  
+  return `${day}/${month}/${year} à ${hours}h${minutes}`;
+};
 
 const emit = defineEmits<{
   (e: 'toggle'): void
@@ -33,40 +51,20 @@ const toggle = () => {
     </div>
     <div class="p-4" :class="{ 'hidden': !expanded }">
       <div class="text-gray-300 space-y-4 max-h-[300px] overflow-y-auto pr-2">
-        <div class="bg-gray-700 p-4 rounded-lg flex gap-4 items-center">
+        <div v-for="article in constitutionArticles" :key="article.artnum" class="bg-gray-700 p-4 rounded-lg flex md:flex-row flex-col gap-2 md:gap-6 items-center md:items-start">
           <div>
-            <img src="/public/city/constitution-laws.webp" class="w-10 h-10 rounded-full" />
+            <img src="/public/city/constitution-laws.webp" class="w-12 h-12 rounded-full" />
           </div>
-          <div>
-            <h3 class="text-lg font-semibold text-white mb-2">Article 1 - Principes Fondamentaux</h3>
-            <p class="text-gray-300">Le village est une communauté démocratique où chaque citoyen a le droit de participer aux décisions collectives.</p>
-          </div>
-        </div>
-        <div class="bg-gray-700 p-4 rounded-lg flex gap-4 items-center">
-          <div>
-            <img src="/public/city/constitution-laws.webp" class="w-10 h-10 rounded-full" />
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold text-white mb-2">Article 1 - Principes Fondamentaux</h3>
-            <p class="text-gray-300">Le village est une communauté démocratique où chaque citoyen a le droit de participer aux décisions collectives.</p>
-          </div>
-        </div>
-        <div class="bg-gray-700 p-4 rounded-lg flex gap-4 items-center">
-          <div>
-            <img src="/public/city/constitution-laws.webp" class="w-10 h-10 rounded-full" />
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold text-white mb-2">Article 1 - Principes Fondamentaux</h3>
-            <p class="text-gray-300">Le village est une communauté démocratique où chaque citoyen a le droit de participer aux décisions collectives.</p>
-          </div>
-        </div>
-        <div class="bg-gray-700 p-4 rounded-lg flex gap-4 items-center">
-          <div>
-            <img src="/public/city/constitution-laws.webp" class="w-10 h-10 rounded-full" />
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold text-white mb-2">Article 1 - Principes Fondamentaux</h3>
-            <p class="text-gray-300">Le village est une communauté démocratique où chaque citoyen a le droit de participer aux décisions collectives.</p>
+          <div class="w-full">
+            <div class="flex md:flex-row flex-col justify-between items-center gap-2 md:gap-4">
+              <h3 class="text-lg font-semibold text-white mb-2">Article "{{ article.title }}" ({{ getConstitutionArticleTitle(article) }})</h3>
+              <div class="text-gray-300 text-sm pb-1.5 text-left md:text-right">
+                <div>Proposé le <b>{{ formatDate(article.metadata.onProposalAt) }}</b> par <b>{{ article.metadata.onProposalBy }}</b></div>
+                <div>Appliqué le <b>{{ formatDate(article.appliedAt) }}</b></div>
+              </div>
+            </div>
+            <hr class="mb-4 mt-2 border-white/20">
+            <p class="text-gray-300 text-sm" v-html="article.content" />
           </div>
         </div>
       </div>

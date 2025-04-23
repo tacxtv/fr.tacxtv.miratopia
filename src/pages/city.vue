@@ -7,6 +7,8 @@ import ConstitutionCard from '~/components/city/ConstitutionCard.vue';
 import LawsCard from '~/components/city/LawsCard.vue';
 import type { Citizen } from '~/services/city/Citizen';
 import { UserRole } from '~/services/city/UserRole';
+import type { ConstitutionArticle } from '~/services/city/ConstitutionArticle';
+import type { Law } from '~/services/city/Law';
 
 useHead({
   title: 'Le Village'
@@ -23,6 +25,8 @@ const governmentCitizens = ref<{
 }>()
  
 const citizens = ref<Citizen[]>([])
+const constitution = ref<ConstitutionArticle[]>([])
+const laws = ref<Law[]>([])
 
 // État des cartes dépliées
 const expandedCards = ref({
@@ -83,9 +87,23 @@ const fetchGovernment = async () => {
    }
 }
 
+const fetchConstitution = async () => {
+   const responseConstitution = await fetch('https://mirashop.tacxtv.fr/api/core/democracy/constitution')
+   const dataConstitution = await responseConstitution.json()
+   constitution.value = dataConstitution.data
+}
+
+const fetchLaws = async () => {
+  const responseLaws = await fetch('https://mirashop.tacxtv.fr/api/core/democracy/law')
+  const dataLaws = await responseLaws.json()
+  laws.value = dataLaws.data
+}
+
 onMounted(async () => {
   await fetchCitizens()
   await fetchGovernment()
+  await fetchConstitution()
+  await fetchLaws()
 })
 </script>
 
@@ -102,7 +120,7 @@ onMounted(async () => {
         <div class="mt-10 flex flex-col items-center gap-8 px-4 md:px-0">
           <div class="text-white text-4xl md:text-6xl font-bold tracking-tight">Le Village</div>
           <div class="text-white text-xl  w-full md:w-2/3 text-center">
-            Une ville communautaire gérée entièrement par les joueurs en semi-RP
+            Une ville communautaire gérée entièrement par les joueurs en semi-RP !
           </div>
         </div>
       </div>
@@ -132,13 +150,14 @@ onMounted(async () => {
             :village-level="villageData.villageLevel"
             @toggle="toggleCard('villageInfo')"
           />
-          <ConstitutionCard 
+          <ConstitutionCard
+            :constitution-articles="constitution"
             :expanded="expandedCards.constitution"
             @toggle="toggleCard('constitution')"
           />
           <LawsCard 
             :expanded="expandedCards.laws"
-            :laws="villageData.laws"
+            :laws="laws"
             @toggle="toggleCard('laws')"
           />
         </div>
