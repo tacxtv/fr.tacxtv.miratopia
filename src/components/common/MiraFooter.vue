@@ -30,7 +30,7 @@ const currentYear = new Date().getFullYear()
         <h4 class="footer-subtitle">À propos</h4>
         <ul class="footer-links">
           <li><NuxtLink to="/team">L'Équipe</NuxtLink></li>
-          <li><NuxtLink to="/presse">Presse</NuxtLink></li>
+          <li><a href="https://tacx.notion.site/Kit-de-presse-1de153ee963f80fa9b62fc33ba4cc389" target="_blank">Presse</a></li>
         </ul>
       </div>
 
