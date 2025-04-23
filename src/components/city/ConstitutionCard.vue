@@ -50,7 +50,7 @@ const toggle = () => {
       </button>
     </div>
     <div class="p-4" :class="{ 'hidden': !expanded }">
-      <div class="text-gray-300 space-y-4 max-h-[300px] overflow-y-auto pr-2">
+      <div class="text-gray-300 space-y-4 max-h-[500px] overflow-y-auto pr-2">
         <div v-for="article in constitutionArticles" :key="article.artnum" class="bg-gray-700 p-4 rounded-lg flex md:flex-row flex-col gap-2 md:gap-6 items-center md:items-start">
           <div>
             <img src="/public/city/constitution-laws.webp" class="w-12 h-12 rounded-full" />
