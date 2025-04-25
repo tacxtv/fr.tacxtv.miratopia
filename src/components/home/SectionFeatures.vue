@@ -50,6 +50,10 @@ onMounted(async () => {
   await fetchEvent()
   await fetchChallenge()
 })
+
+const openGuide = () => {
+  window.open('https://tacx.notion.site/Wikitopia-1de153ee963f80d29df1cdeeb85779e5', '_blank')
+}
 </script>
 
 <template>
@@ -82,7 +86,7 @@ onMounted(async () => {
           </div>
         </div>
       </div>
-      <div class="w-full md:w-1/2 bg-gradient-to-br from-amber-200 via-orange-200 to-amber-300 rounded-lg h-[500px] relative overflow-hidden group cursor-pointer" @click="navigateTo('/guide')">
+      <div class="w-full md:w-1/2 bg-gradient-to-br from-amber-200 via-orange-200 to-amber-300 rounded-lg h-[500px] relative overflow-hidden group cursor-pointer" @click="openGuide">
         <img src="/features/guide.png" class="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[520px] object-cover group-hover:scale-105 transition-transform duration-300">
       </div>
     </div>
@@ -96,11 +100,11 @@ onMounted(async () => {
           <div class="text-white text-4xl md:text-3xl font-bold [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]">
             Evénement à venir
           </div>
-          <div v-if="incomingEvent" class="w-full max-w-2xl bg-blue-900/50 backdrop-blur-sm rounded-lg p-4 flex md:flex-row flex-col gap-4 items-center md:h-[200px] h-[250px]">
+          <div class="w-full max-w-2xl bg-blue-900/50 backdrop-blur-sm rounded-lg p-4 flex md:flex-row flex-col gap-4 items-center md:h-[200px] h-[250px]">
             <div class="w-20 h-20 flex-shrink-0">
               <img src="/logo.png" alt="Event" class="w-full h-full object-cover rounded-lg">
             </div>
-            <div class="flex-1 text-left">
+            <div v-if="incomingEvent" class="flex-1 text-left">
               <h3 class="text-white text-2xl font-bold mb-0.5 [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]">{{ incomingEvent.name }}</h3>
               <p class="text-white/90 mb-1 [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]">{{ incomingEvent.description }}</p>
               <div class="flex items-center gap-2 text-white/80">
@@ -110,16 +114,23 @@ onMounted(async () => {
                 <span class="[text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]">Commence le {{ formatDate(incomingEvent.startAt) }}</span>
               </div>
             </div>
+            <div v-else>
+              <div class="flex items-center justify-center h-full">
+                <div class="text-white text-2xl font-bold mb-0.5 [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]">
+                  Prochain événement bientôt annoncé ! 
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="text-white text-4xl md:text-3xl font-bold [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]">
             Défi en cours
           </div>
-          <div v-if="currentChallenge" class="w-full max-w-2xl bg-blue-900/50 backdrop-blur-sm rounded-lg p-4 flex md:flex-row flex-col gap-4 items-center md:h-[200px] h-[270px]">
+          <div class="w-full max-w-2xl bg-blue-900/50 backdrop-blur-sm rounded-lg p-4 flex md:flex-row flex-col gap-4 items-center md:h-[200px] h-[270px]">
             <div class="w-20 h-20 flex-shrink-0">
               <img src="/logo.png" alt="Event" class="w-full h-full object-cover rounded-lg">
             </div>
-            <div class="flex-1 text-left">
+            <div v-if="currentChallenge" class="flex-1 text-left">
               <h3 class="text-white text-2xl font-bold mb-0.5 [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]">{{ currentChallenge.name }}</h3>
               <p class="text-white/90 mb-1 [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]">Enregistre le plus de points possible sur le Mirashop pour gagner des récompenses !</p>
               <div class="flex items-center gap-2 text-white/80">
@@ -127,6 +138,13 @@ onMounted(async () => {
                   <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                 </svg>
                 <span class="[text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]">Se termine le {{ formatDate(currentChallenge.endAt) }}</span>
+              </div>
+            </div>
+            <div v-else>
+              <div class="flex items-center justify-center h-full">
+                <div class="text-white text-2xl font-bold mb-0.5 [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]">
+                  Prochain défi bientôt annoncé ! 
+                </div>
               </div>
             </div>
           </div>
