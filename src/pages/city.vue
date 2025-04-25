@@ -144,12 +144,12 @@ onMounted(async () => {
 
         <!-- Colonne de droite (w-3/4) -->
         <div class="w-full md:w-3/4 space-y-6">
-          <VillageInfoCard 
+          <!-- <VillageInfoCard 
             :expanded="expandedCards.villageInfo"
             :laws="villageData.laws"
             :village-level="villageData.villageLevel"
             @toggle="toggleCard('villageInfo')"
-          />
+          /> -->
           <ConstitutionCard
             :constitution-articles="constitution"
             :expanded="expandedCards.constitution"

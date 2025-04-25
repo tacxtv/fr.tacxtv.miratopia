@@ -50,7 +50,7 @@ const toggle = () => {
       </button>
     </div>
     <div class="p-4" :class="{ 'hidden': !expanded }">
-      <div class="text-gray-300 space-y-4 max-h-[500px] overflow-y-auto pr-2">
+      <div v-if="false" class="text-gray-300 space-y-4 max-h-[500px] overflow-y-auto pr-2">
         <div v-for="(law, index) in laws" :key="index" class="bg-gray-700 p-4 rounded-lg flex md:flex-row flex-col gap-2 md:gap-6 items-center md:items-start">
           <div>
             <img src="/public/city/constitution-laws.webp" class="w-12 h-12 rounded-full" />
@@ -62,6 +62,13 @@ const toggle = () => {
             </div>
             <hr class="mb-4 mt-2 border-white/20">
             <p class="text-gray-300 text-sm" v-html="law.content" />
+          </div>
+        </div>
+      </div>
+      <div v-else>
+        <div class="flex items-center justify-center h-full">
+          <div class="text-white text-xl font-bold mb-0.5 [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]">
+            Aucune loi en vigueur pour le moment ! 
           </div>
         </div>
       </div>
