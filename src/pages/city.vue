@@ -15,7 +15,6 @@ useHead({
 })
 
 const localStorageFeatureFlag = useLocalStorage('feature-flag', 'false')
-const displayWip = computed(() => localStorageFeatureFlag.value !== 'true')
 
 const governmentCitizens = ref<{
   mayor?: Citizen;
@@ -109,10 +108,7 @@ onMounted(async () => {
 
 <template>
   <div>
-  <div v-if="displayWip" class="layout">
-    <MiraWorkInProgress />
-  </div>
-  <div v-else class="layout">
+  <div class="layout">
     <!-- Header amélioré -->
     <div class="relative">
       <div class="absolute inset-0 bg-gradient-to-b to-transparent z-10"></div>
