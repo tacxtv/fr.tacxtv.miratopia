@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import TeamMemberCard from '~/components/team/TeamMemberCard.vue';
-import MiraWorkInProgress from '~/components/common/MiraWorkInProgress.vue';
 import type { Citizen } from '~/services/city/Citizen';
 
 useHead({
   title: 'L\'Équipe'
 })
-
-const localStorageFeatureFlag = useLocalStorage('feature-flag', 'false')
-const displayWip = computed(() => localStorageFeatureFlag.value !== 'true')
 
 const teamMembers = ref<Citizen[]>([])
 
@@ -29,10 +25,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="displayWip" class="layout">
-    <MiraWorkInProgress />
-  </div>
-  <div v-else class="layout">
+  <div class="layout">
     <div class="mt-10 flex flex-col items-center gap-8 px-4 md:px-0">
       <div class="text-white text-3xl md:text-5xl font-medium">L'Équipe Miratopia</div>
       <div class="text-white text-xl  w-full md:w-2/3 text-center">
