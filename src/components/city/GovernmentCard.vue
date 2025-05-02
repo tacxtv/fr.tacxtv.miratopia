@@ -95,7 +95,7 @@ const redirectToMaire = () => {
       <div class="text-white bg-white/10 backdrop-blur-sm p-4 rounded-lg mb-6 flex flex-col justify-between items-center ring-2 ring-[var(--primary-60)] ring-opacity-30">
         <div>
           <div class="font-semibold">Élections en cours</div>
-          <div class="text-sm text-gray-300 mt-1">Fin des élections : {{ formatDate('2025-04-20T12:00:00') }}</div>
+          <div class="text-sm text-gray-300 mt-1">Fin des élections : {{ formatDate('2025-05-04T20:00:00') }}</div>
         </div>
         <button class="btn btn-secondary w-full px-2 py-1 mt-2 rounded-md font-medium transition-all border border-[var(--primary-0)] text-[var(--primary-0)] hover:bg-[var(--surface-20)] cursor-pointer" @click="redirectToMaire">
           <span class="flex items-center gap-2 justify-center">
