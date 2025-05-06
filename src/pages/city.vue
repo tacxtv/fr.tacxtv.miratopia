@@ -93,7 +93,7 @@ const fetchConstitution = async () => {
 }
 
 const fetchLaws = async () => {
-  const responseLaws = await fetch('https://mirashop.tacxtv.fr/api/core/democracy/law')
+  const responseLaws = await fetch('https://mirashop.tacxtv.fr/api/core/democracy/law/all')
   const dataLaws = await responseLaws.json()
   laws.value = dataLaws.data
 }

@@ -57,8 +57,8 @@ const toggle = () => {
           </div>
           <div class="w-full">
             <div class="flex md:flex-row flex-col justify-between items-center gap-2 md:gap-4">
-              <h3 class="text-lg font-semibold text-white mb-2">Loi "{{ law.title }}" ({{ getLawTitle(law) }})</h3>
-              <div class="text-gray-300 text-sm pb-1.5">Appliquée le <b>{{ formatDate(law.appliedAt) }}</b> par <b>{{ law.proposedBy }}</b></div>
+              <h3 class="text-lg font-semibold text-white mb-2">{{ law.title }} (Loi n°{{ getLawTitle(law) }})</h3>
+              <div class="text-gray-300 text-sm pb-1.5 text-right">En vigueur dès le <b>{{ formatDate(law.appliedAt) }}</b> <br>Loi proposée par <b>{{ law.proposedBy }}</b></div>
             </div>
             <hr class="mb-4 mt-2 border-white/20">
             <p class="text-gray-300 text-sm" v-html="law.content" />

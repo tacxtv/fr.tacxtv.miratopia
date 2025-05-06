@@ -50,7 +50,22 @@ const toggle = () => {
       </button>
     </div>
     <div class="p-4" :class="{ 'hidden': !expanded }">
-      <div class="text-gray-300 space-y-4 max-h-[500px] overflow-y-auto pr-2">
+      <div v-if="constitutionArticles.length > 0" class="text-gray-300 space-y-4 max-h-[500px] overflow-y-auto pr-2">
+        <div v-for="(article, index) in constitutionArticles" :key="index" class="bg-gray-700 p-4 rounded-lg flex md:flex-row flex-col gap-2 md:gap-6 items-center md:items-start">
+          <div>
+            <img src="/public/city/constitution-laws.webp" class="w-12 h-12 rounded-full" />
+          </div>
+          <div class="w-full">
+            <div class="flex md:flex-row flex-col justify-between items-center gap-2 md:gap-4">
+              <h3 class="text-lg font-semibold text-white mb-2">{{ article.title }} (Loi n°{{ getConstitutionArticleTitle(article) }})</h3>
+              <div class="text-gray-300 text-sm pb-1.5 text-right">En vigueur dès le <b>{{ formatDate(article.appliedAt) }}</b> <br>Loi proposée par <b>{{ article.metadata.onProposalBy }}</b></div>
+            </div>
+            <hr class="mb-4 mt-2 border-white/20">
+            <p class="text-gray-300 text-sm" v-html="article.content" />
+          </div>
+        </div>
+      </div>
+      <div v-else class="text-gray-300 space-y-4 max-h-[500px] overflow-y-auto pr-2">
         <div class="bg-gray-700 p-4 rounded-lg">
           <h2 class="text-xl font-bold text-white mb-4">Préambule</h2>
           <p class="mb-4">Le peuple de Miratopia, réuni en une seule et même communauté de blocs et de rires, proclame cette Constitution afin d'assurer à chaque joueur une expérience de jeu digne des plus grandes épopées pixélisées. Que la paix, la créativité, et le respect du code chunkien règnent.</p>
