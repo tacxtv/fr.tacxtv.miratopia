@@ -11,6 +11,9 @@ const currentChallenge = ref<{
   name: string,
   image: string,
   endAt: string,
+  _data: {
+    texture: string,
+  }
 }>()
 
 const fetchEvent = async () => {
@@ -136,7 +139,8 @@ const redirectToMaire = () => {
           </div>
           <div class="w-full max-w-2xl bg-blue-900/50 backdrop-blur-sm rounded-lg p-4 flex md:flex-row flex-col gap-4 items-center md:h-[200px] h-[270px]">
             <div class="w-20 h-20 flex-shrink-0">
-              <img src="/logo.png" alt="Event" class="w-full h-full object-cover rounded-lg">
+              <img v-if="currentChallenge && currentChallenge._data.texture" :src="currentChallenge._data.texture" alt="Event" class="w-full h-full object-cover rounded-lg">
+              <img v-else src="/logo.png" alt="Event" class="w-full h-full object-cover rounded-lg">
             </div>
             <div v-if="currentChallenge" class="flex-1 text-left">
               <h3 class="text-white text-2xl font-bold mb-0.5 [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]">{{ currentChallenge.name }}</h3>
